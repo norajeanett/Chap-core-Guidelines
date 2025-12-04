@@ -29,7 +29,7 @@ Kort sagt: **CHAP-Core = backend-hjernen i modellering for DHIS2**.
 ---
 
 # 2. Forutsetninger
-# kof
+
 
 Du trenger:
 
