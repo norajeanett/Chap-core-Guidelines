@@ -1,121 +1,157 @@
-# Getting Started with CHAP-Core
-**For master students working with forecasting, modeling and DHIS2**
+# Guidelines for Tutorials for Master Students (CHAP-Core)
 
-Denne tutorialen gir deg en praktisk introduksjon til CHAP-Core – motoren som kjører modeller for epidemiologisk prediksjon, forecasting og evaluering i DHIS2-økosystemet.
+Denne guiden beskriver hvordan alle tutorials for masterstudenter som jobber med CHAP-Core skal utformes.
 
-Målet er at du skal:
+Målet er at alle tutorials skal være:
 
-- Installere og kjøre CHAP-Core lokalt
-- Forstå hvordan CHAP bruker modeller, datasets og metadata
-- Kjøre din første modell og tolke resultatene
-- Navigere prosjektstrukturen du skal jobbe med i masteroppgaven
-- Få en base du kan bygge videre på (egne modeller, egne datasett, integrasjon med DHIS2)
-
-
+- Reproduserbare  
+- Trygge å kjøre på en helt blank PC  
+- Pedagogiske  
+- Konsistente på tvers av prosjekter og semestre  
+- Bygget på en tydelig progresjon:  
+  **isolert eksempel → CHAP-integrasjon → (eventuelt) DHIS2**
 
 ---
 
-#  1. Hva er CHAP-Core?
+## 1. Målgruppe
 
-CHAP-Core er en Python-basert modellmotor som:
+Alle tutorials er skrevet for:
 
-- leser inn data (DHIS2 eller CSV)
-- kjører modeller (regresjon, tidsserier, ML)
-- beregner usikkerhet / konfidensintervaller
-- produserer output som kan integreres i DHIS2 Modeling App
+- Masterstudenter i informatikk, data science, maskinlæring eller helseinformatikk  
+- Studenter som:
+  - Kan Python på grunnleggende nivå  
+  - Har lite eller ingen erfaring med CHAP-Core fra før  
 
-Kort sagt: **CHAP-Core = backend-hjernen i modellering for DHIS2**.
+Tutorials skal **ikke** anta:
+
+- At studenten kjenner DHIS2 fra før  
+- At studenten har jobbet med CHAP tidligere  
+- At studenten har spesifikke biblioteker installert  
 
 ---
 
-# 2. Forutsetninger
+## 2. Obligatorisk struktur for alle tutorials
+
+Alle tutorials **MÅ** inneholde:
+
+1. **Tittel**
+2. **Kort introduksjon**
+3. **Læringsmål**
+4. **Forutsetninger**
+5. **Oppsett på blank PC**
+6. **Kjørbar demo**
+7. **Forklaring av output**
+8. **Feilsøking**
+9. **Neste steg**
+
+---
+
+## Bli kjent med Chap Core with DHIS2 Modeling App
+
+https://dhis2-chap.github.io/chap-core/modeling-app/index.html
+
+## 3. Pedagogisk hovedprinsipp: Isolert eksempel før CHAP
+
+Alle tutorials som involverer modeller **SKAL** følge denne progresjonen:
+
+1. **Først: Et isolert eksempel**
+   - Modellen kjøres uten CHAP
+   - Studentene skal forstå:
+     - hva input er
+     - hva modellen gjør
+     - hva output betyr
+   - Dette gir studenten noe *konkret og fungerende* før kompleksiteten økes
+
+2. **Deretter: Integrasjon med CHAP-Core**
+   - Samme modell kobles til CHAP
+   - Studentene lærer:
+     - hvordan CHAP kaller modellen
+     - hvordan train/predict styres via CHAP
+     - hvordan output standardiseres
+
+3. **Til slutt (valgfritt): Integrasjon med DHIS2**
+   - Kun når studenten forstår både modellen og CHAP-pipelinen
+
+ **Ingen student skal møte CHAP før de har sett et isolert, fungerende eksempel.**
+
+---
+
+## 4. Virtuelt miljø er OBLIGATORISK
+
+Alle tutorials **SKAL** bruke:
 
 
-Du trenger:
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
 
-- Python 3.9 eller nyere
-- pip
-- Et fungerende virtuelt miljø anbefales
+## 5. requirements.txt er OBLIGATORISK
 
---- 
+Alle tutorials SKAL ha en requirements.txt.
 
-# 3. Installer CHAP-core
+Det er ikke lov å skrive:
 
 pip install chap-core
+pip install pandas
+pip install numpy
 
-sjekk at kommandoen fungerer: 
-    chap --help
 
-Hvis du får en liste med kommandoer -> alt fungerer. 
+**Riktig måte:**
+pip install -r requirements.txt
+
+
+**Minimum requirements.txt for CHAP-tutorials:**
+chap-core
+pandas
+numpy
+pyyaml
+scikit-learn
+
+Dette sikrer:
+
+- Samme versjoner for alle studenter
+
+- Reproduserbare resultater
+
+- Færre installasjonsfeil
+
+---
+## Bruk av minimalist_example (CHAP-integrasjon)
+
+minimalist_example skal brukes som:
+
+- Referanse for hvordan en modell integreres i CHAP-Core
+
+- Eksempel på MLproject + train / predict-struktur
+
+- Bro mellom ren ML-kode og CHAP-pipeline
+
+Men:
+
+- minimalist_example skal ikke være eneste oppsett
+
+- Tutorials kan ha egne datasett og egne modeller i tillegg
+
+
+Typisk progresjon for studentene:
+
+1. Først: Kjøre modell uten CHAP
+
+2. Så: Integrere modellen via minimalist_example-struktur
+
+3. Til slutt: Koble til DHIS2 Modeling App
+
+**Link til repo: https://github.com/dhis2-chap/minimalist_example**
 
 ---
 
-# 4. Opprett prosjektstruktur 
+## Tutorials skal:
 
-getting-started-chap/
-│
-├── data/
-│   ├── example_dataset.csv
-│   └── metadata.json
-│
-├── model/
-│   └── example_model.yaml
-│
-└── output/
+- Forklare hva som skjer, ikke bare hva man skriver
 
+- Ha korte, oversiktlige avsnitt
 
----
-# 5. Lag et eksempel-dataset
-Opprett filen: 
-    data/example_dataset.cvs
+- Bruke kodeblokker for all kode
 
-region,period,rainfall,temperature,population,incidence_rate
-UG-01,2020Q1,123,27,200000,14.2
-UG-01,2020Q2,98,25,200000,13.7
-UG-01,2020Q3,76,24,200000,11.5
-UG-01,2020Q4,90,26,200000,12.8
+- Forklare nye begreper første gang de brukes
 
-Opprett metadatafilen:
-    data/metadata.json
-
-{
-  "dataset_name": "uganda_tutorial_dataset",
-  "country": "uga",
-  "period_type": "quarterly",
-  "geography_level": "district",
-  "target_variable": "incidence_rate"
-}
-
-
-# 6. Definer en enkel modell
-
-model:
-  name: example_model
-  type: regression
-  parameters:
-    n_estimators: 100
-    max_depth: 3
-
-training:
-  target: incidence_rate
-  features:
-    - rainfall
-    - temperature
-    - population
-
-validation:
-  metrics:
-    - rmse
-    - mae
-
-Dette er en enkel modell – men den demonstrerer hele CHAP-pipelinen.
-
---- 
-
-# 7. Kjør modellen med CHAP-Core
-
-chap evaluate \
-    --model model/example_model.yaml \
-    --dataset data/example_dataset.csv \
-    --metadata data/metadata.json \
-    --output output/
+- Aldri hoppe over “selvsagte” steg
