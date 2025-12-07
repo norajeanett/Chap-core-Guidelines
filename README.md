@@ -62,6 +62,42 @@ Alle tutorials som involverer modeller **SKAL** følge denne progresjonen:
      - hva output betyr
    - Dette gir studenten noe *konkret og fungerende* før kompleksiteten økes
 
+
+   ## Hva skal et “isolated example” inneholde?
+
+    Et isolert eksempel er en **fullt fungerende modell uten bruk av CHAP-Core**.  
+    Formålet er at studenten først skal forstå modellen i seg selv, før den kobles til CHAP.
+
+    Alle isolated examples **SKAL** inneholde:
+
+    ### 1. Et tydelig definert problem
+    Eksempel:
+        - Prediksjon av sykdomsinsidens
+        - Temperaturprognoser
+        - Regresjon på miljødata
+        - Klassifisering av risikonivå
+
+    Problemstillingen skal forklares med én kort tekst:
+
+      > “Vi ønsker å predikere X basert på Y og Z.”
+
+---
+
+  ### 2. Et lite og forståelig datasett
+
+      Datasetet skal være:
+      - Lite (slik at det kan åpnes i teksteditor)
+      - Lesbart
+      - Strukturert som CSV eller Parquet
+
+      Eksempel:
+
+      ```csv
+      region,temperature,rainfall,incidence
+      A,24,120,14.2
+      B,22,95,13.1
+      ```
+
 2. **Deretter: Integrasjon med CHAP-Core**
    - Samme modell kobles til CHAP
    - Studentene lærer:
@@ -88,7 +124,7 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 
 Alle tutorials SKAL ha en requirements.txt.
 
-Det er ikke lov å skrive:
+**Det er ikke lov å skrive:**
 
 pip install chap-core
 pip install pandas
@@ -141,6 +177,8 @@ Typisk progresjon for studentene:
 3. Til slutt: Koble til DHIS2 Modeling App
 
 **Link til repo: https://github.com/dhis2-chap/minimalist_example**
+
+
 
 ---
 
