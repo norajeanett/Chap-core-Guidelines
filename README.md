@@ -85,7 +85,7 @@ Det betyr at:
 
 - alle får samme versjoner av pakkene → mindre feilsøking
 
-### 3 Steg-for-steg for studenter
+### 3. Steg-for-steg 
 
 Fra en helt blank maskin:
 
@@ -123,6 +123,33 @@ Dette gjør automatisk:
 
 De trenger ikke å kjøre pip install direkte, kun uv sync -r requirements.txt.
 
+Hvis du ikke har uv-managed virtual environment: 
+```
+uv venv
+```
+
+Dette vil lage: 
+```
+.venv/
+```
+
+så:
+```
+source .venv/bin/activate
+```
+
+så:
+
+```
+uv pip install -r requirements.txt
+```
+
+Oppdater med: 
+Hver gang du legger til eller fjerner en linje i requirements.txt:
+```
+uv pip install -r requirements.txt
+```
+
 #### 1.3.3 Kjøre Python-skript via uv
 
 Når uv sync er ferdig, kan du kjøre koden slik:
@@ -132,35 +159,10 @@ Når uv sync er ferdig, kan du kjøre koden slik:
 
 eller hvilket skript tutorialen bruker.
 
-### 1.4 Hvordan oppdaterer vi requirements.txt? 
-
-Dette er relevant for deg som lager/opprettholder tutorialen.
-
-Typisk arbeidsflyt:
-**1. Installer eller oppdater en pakke (inne i prosjektet):**
-
-```uv pip install ny-pakke```
 
 
-eller (hvis du allerede er i venv):
 
-```pip install ny-pakke```
-
-
-**2. Oppdater requirements.txt basert på faktisk miljø:**
-
-```uv pip freeze > requirements.txt```
-
-
-(eller ```pip freeze``` > ```requirements.txt``` fra aktivert venv)
-
-**3. Test at det funker på “blankt miljø” ved å kjøre:**
-
-```uv sync -r requirements.txt```
-```uv run python isolated_metric.py```
-
-
-## 2. Den isolerte fasen – før vi bruker CHAP
+## 2. Den isolerte fasen (før vi bruker CHAP)
 
 I denne delen av tutorialen jobber vi **helt uten CHAP-Core**.
 
